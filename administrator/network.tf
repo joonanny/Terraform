@@ -45,3 +45,16 @@ resource "azurerm_public_ip" "bastion-ip" {
   zones               = var.bastion_ip_zone
   location            = var.rg_location
 }
+
+#-------------------- management subnet nic--------------------
+resource "azurerm_network_interface" "management-nic" {
+  name                = var.management_nic_name
+  location            = var.rg_location
+  resource_group_name = var.rg_name
+
+  ip_configuration {
+    name                          = "${var.management_nic_name}_conf"
+    subnet_id                     = azurerm_subnet.bastion.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
