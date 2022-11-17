@@ -1,17 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source = "hashicorp/azurerm"
-      version = "3.31.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  #skip_provider_registration = "true"
-  features {}
-}
-
 module "rg" {
   source = "./rg"
 
@@ -82,4 +68,7 @@ module "user" {
 #-------------------- aks nodepool--------------------
   aks_add_node_pool_name = "system"
   aks_add_node_pool_size = "Standard_B4ms"
+#-------------------- acr--------------------
+  acr_name = "skyveacr"
+  acr_sku = "Premium"
 }
