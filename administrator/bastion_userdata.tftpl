@@ -1,0 +1,17 @@
+#!/bin/bash
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+apt install -y docker.io
+sudo usermod -aG docker azureuser
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get install -y kubectl
+sudo apt-get install bash-completion
+sudo source /usr/share/bash-completion/bash_completion
+sudo kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+kubectl cluster-info
