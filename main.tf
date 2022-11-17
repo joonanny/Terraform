@@ -41,17 +41,45 @@ module "admin" {
   bastion_vm_name = "Bastion"
   bastion_vm_size = "Standard_B2s"
   bastion_vm_username = "azureuser"
-  bastion_vm_passwd = "btc2022!"  # 이거 키 사용한다면 고쳐야 함
+  bastion_vm_passwd = "btc2022!"  # 키 사용한다면 고쳐야 함
   bastion_vm_zone = 1
-
-
+#-------------------- Bastion vm nsg--------------------
+  bastion_nsg_name = "BastionNSG"
+  bastion_nsg_inbound_rule1_name = "ssh"
+  bastion_nsg_inbound_rule1_deet_port = "22"
+#-------------------- management subnet nic--------------------
+  management_nic_name = "management"
+  #-------------------- Bastion vm--------------------
+  management_vm_name = "management"
+  management_vm_size = "Standard_B2s"
+  management_vm_username = "azureuser"
+  management_vm_passwd = "btc2022!"  # 키 사용한다면 고쳐야 함
+  management_vm_zone = 1
+#-------------------- Bastion vm nsg--------------------
+  management_nsg_name = "managementNSG"
+  management_nsg_inbound_rule1_name = "ssh"
+  management_nsg_inbound_rule1_deet_port = "22"
 }
 
-# module "user" {
-#   source = "./user"
+module "user" {
+  source = "./user"
 
-#   rg_name = module.rg.rg_name
-#   rg_location = module.rg.rg_lacation
-#   user_vnet_name = "SkyVe-aks"
-#   user_vnet_spacer = "10.1.0.0/16"
-# }
+#-------------------- user vnet--------------------
+  rg_name = module.rg.rg_name
+  rg_location = module.rg.rg_lacation
+  user_vnet_name = "SkyVe-aks"
+  user_vnet_spacer = "10.1.0.0/16"
+#-------------------- aks subnet--------------------
+  aks_subnet_name = "aks-subnet"
+  user_subnet_addr = "10.1.8.0/22"
+#-------------------- aks subnet nic--------------------
+  aks_nic_name = "aks"
+#-------------------- aks --------------------
+  aks_name = "skyve"
+  aks_default_node_pool_name = "user"
+  aks_default_node_pool_nodeCount = 1
+  aks_default_node_pool_size = "Standard_B4ms"
+#-------------------- aks nodepool--------------------
+  aks_add_node_pool_name = "system"
+  aks_add_node_pool_size = "Standard_B4ms"
+}
