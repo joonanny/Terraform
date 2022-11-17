@@ -67,8 +67,54 @@ variable "bastion_vm_zone" {
     type = number
 }
 
+#-------------------- Bastion vm nsg--------------------
+variable "bastion_nsg_name" {
+    type = string
+}
 
+variable "bastion_nsg_inbound_rule1_name" {
+    type = string
+}
 
+variable "bastion_nsg_inbound_rule1_deet_port" {
+    type = string
+}
 
+#-------------------- management subnet nic--------------------
+variable "management_nic_name" {
+    type = string
+}
 
+#-------------------- management vm--------------------
+variable "management_vm_name" {
+    type = string
+}
 
+variable "management_vm_size" {
+    type = string
+}
+
+variable "management_vm_username" {
+    type = string
+}
+
+variable "management_vm_passwd" {
+    type = string
+}
+
+variable "management_vm_zone" {
+    type = number
+}
+
+#-------------------- management vm nsg--------------------
+variable "management_nsg_name" {
+    type = string
+}
+
+variable "management_nsg_inbound_rule1_name" {
+    type = string
+}
+
+variable "management_nsg_inbound_rule1_deet_port" {
+    type = string
+}
